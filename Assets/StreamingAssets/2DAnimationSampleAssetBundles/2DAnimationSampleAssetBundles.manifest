@@ -1,0 +1,12 @@
+ManifestFileVersion: 0
+UnityVersion: 6000.1.11f1
+CRC: 4120014595
+HashAppended: 0
+AssetBundleManifest:
+  AssetBundleInfos:
+    Info_0:
+      Name: rikrrage
+      Dependencies: {}
+    Info_1:
+      Name: rikrpoison
+      Dependencies: {}
