@@ -7,13 +7,13 @@ public class PlantManager : MonoBehaviour
     public PlantCardScriptableObject thisSO;
     public Transform shootPoint;
     public GameObject Bullet;
-    public float health;
-    public float damage;
-    public float range;
-    public float speed;
-    public LayerMask zombieLayer;
-    public float fireRate;
+    public float health, damage, range, speed, fireRate;
+    public LayerMask zombieLayer; // lo conservo, aunque el disparo no lo usa
 
+    [Header("Tolerancia vertical para 'misma fila'")]
+    public float laneTolerance = 1.0f; // ajustado alto para cubrir bien filas 3 y 4
+
+    // Mines (se mantiene)
     public bool isMine;
     public float growDuration;
     public GameObject explosion;
@@ -25,13 +25,13 @@ public class PlantManager : MonoBehaviour
 
     public bool isDragging = true;
 
-    private void Start()
+    void Start()
     {
-        health = thisSO.health;
-        damage = thisSO.damage;
-        range = thisSO.range;
-        speed = thisSO.speed;
-        Bullet = thisSO.Bullet;
+        health  = thisSO.health;
+        damage  = thisSO.damage;
+        range   = thisSO.range;
+        speed   = thisSO.speed;
+        Bullet  = thisSO.Bullet;
         zombieLayer = thisSO.zombieLayer;
         fireRate = thisSO.fireRate;
 
@@ -51,34 +51,52 @@ public class PlantManager : MonoBehaviour
         StartCoroutine(Attack());
     }
 
-    private void Update()
+    void Update()
     {
-        if (health <= 0)
-        {
-            //Dead
-            Destroy(this.gameObject);
-        }
+        if (health <= 0) Destroy(gameObject);
     }
 
-    public IEnumerator Attack()
+    IEnumerator Attack()
     {
         yield return new WaitUntil(() => !isDragging);
-        yield return new WaitForSeconds(fireRate);
-        if (speed > 0)
+
+        while (true)
         {
-            RaycastHit2D hit = Physics2D.Raycast(shootPoint.position, shootPoint.right, range, zombieLayer) ;
-            Debug.DrawRay(shootPoint.position, shootPoint.right, Color.red);
-            if (hit)
+            yield return new WaitForSeconds(fireRate);
+
+            if (speed <= 0) continue;
+
+            // Busca zombies por tag; dispara si hay uno a la derecha, en rango y misma fila (tolerancia)
+            var zombies = GameObject.FindGameObjectsWithTag("Zombie");
+            bool hayObjetivo = false;
+
+            for (int i = 0; i < zombies.Length; i++)
             {
-                if (hit.transform.tag == "Zombie")
+                Transform z = zombies[i].transform;
+
+                if (Mathf.Abs(z.position.y - transform.position.y) > laneTolerance) continue;
+
+                float dx = z.position.x - shootPoint.position.x;
+                if (dx > 0f && dx <= range)
                 {
-                    Debug.Log("Hit zombie");
-                    GameObject bullet = Instantiate(Bullet, shootPoint.transform.position, Quaternion.identity);
-                    bullet.GetComponent<PeaManager>().damage = damage;
-                    bullet.GetComponent<Rigidbody2D>().linearVelocity = transform.right * speed;
+                    hayObjetivo = true;
+                    break;
                 }
             }
-            StartCoroutine(Attack());
+
+            if (hayObjetivo)
+            {
+                GameObject bullet = Instantiate(Bullet, shootPoint.position, Quaternion.identity);
+                var pea = bullet.GetComponent<PeaManager>();
+                if (pea) pea.damage = damage;
+
+                var rb = bullet.GetComponent<Rigidbody2D>();
+                if (rb)
+                {
+                    rb.linearVelocity = Vector2.right * speed;
+                    rb.linearVelocity       = Vector2.right * speed;
+                }
+            }
         }
     }
 
@@ -93,37 +111,31 @@ public class PlantManager : MonoBehaviour
     public IEnumerator blink()
     {
         yield return new WaitUntil(() => !isDragging);
-        this.GetComponent<SpriteRenderer>().sprite = states[stateCount];
+        GetComponent<SpriteRenderer>().sprite = states[stateCount];
         yield return new WaitForSeconds(blinkingRate);
-        stateCount = isGrown ? stateCount == 2 ? 3 : 2 : stateCount == 1 ? 0 : 1;
+        stateCount = isGrown ? (stateCount == 2 ? 3 : 2) : (stateCount == 1 ? 0 : 1);
         StartCoroutine(blink());
     }
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        if (isMine && isGrown)
-        {
-            if (collision.gameObject.tag == "Zombie")
-            {
-                collision.GetComponent<ZombieController>().DealDamage(damage);
-            }
-        }
+        if (!isMine || !isGrown) return;
+        if (collision.CompareTag("Zombie"))
+            collision.GetComponent<ZombieController>().DealDamage(damage);
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (isMine && isGrown)
+        if (!isMine || !isGrown) return;
+        if (collision.CompareTag("Zombie"))
         {
-            if (collision.gameObject.tag == "Zombie")
-            {
-                Instantiate(explosion, this.transform);
-                Destroy(this.gameObject);
-            }
+            Instantiate(explosion, transform.position, Quaternion.identity);
+            Destroy(gameObject);
         }
     }
 
-    public void Damage(float amnt)
-    {
-        health -= amnt;
-    }
+    public void Damage(float amnt) => health -= amnt;
 }
+
+
+

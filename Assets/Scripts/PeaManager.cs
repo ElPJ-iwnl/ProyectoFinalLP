@@ -6,13 +6,14 @@ public class PeaManager : MonoBehaviour
 {
     public float damage;
 
-private void OnTriggerEnter2D(Collider2D col)
-{
-    var zombie = col.GetComponentInParent<ZombieController>();
-    if (zombie != null)
+    private void OnTriggerEnter2D(Collider2D col)
     {
-        zombie.DealDamage(damage);
-        Destroy(gameObject);
+        var zombie = col.GetComponentInParent<ZombieController>();
+        if (zombie != null)
+        {
+            zombie.DealDamage(damage);
+            Destroy(gameObject);
+        }
     }
 }
-}
+

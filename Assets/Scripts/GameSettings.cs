@@ -6,12 +6,12 @@ public class GameSettings : MonoBehaviour
 {
     public static GameSettings I;
 
-
     public Difficulty difficulty = Difficulty.Easy;
 
-    public float zombieSpeedMultiplier = 1f;   
-    public float sunSpawnIntervalMultiplier = 0.5f; 
-    public int startingSun = 50;    
+    public float zombieSpeedMultiplier = 1f;
+    public float sunSpawnIntervalMultiplier = 0.5f;
+    public int startingSun = 50;
+
     public bool overrideSunTimes = false;
     public float sunMinTime = 3f;
     public float sunMaxTime = 6f;
@@ -20,7 +20,11 @@ public class GameSettings : MonoBehaviour
     public float zombieSpeedAbs = 1.0f;
 
     public bool overridePeaFireRate = false;
-    public float peaFireRateAbs = 1.0f;         
+    public float peaFireRateAbs = 1.0f;
+
+    // NUEVO: tiempo para ganar (segundos)
+    public float winTimeSeconds = 30f;
+
     void Awake()
     {
         if (I != null && I != this) { Destroy(gameObject); return; }
@@ -31,24 +35,25 @@ public class GameSettings : MonoBehaviour
     public void ApplyEasy()
     {
         difficulty = Difficulty.Easy;
-
         zombieSpeedMultiplier = 1f;
-        sunSpawnIntervalMultiplier = 0.6f;  
-        startingSun = 300;                
+        sunSpawnIntervalMultiplier = 0.6f;
+        startingSun = 300;
         overrideSunTimes = false;
         overrideZombieSpeed = false;
         overridePeaFireRate = false;
+        winTimeSeconds = 30f;
     }
-        public void ApplyMedium()
+
+    public void ApplyMedium()
     {
         difficulty = Difficulty.Medium;
-
         zombieSpeedMultiplier = 1f;
-        sunSpawnIntervalMultiplier = 1f;  
-        startingSun = 200;                
+        sunSpawnIntervalMultiplier = 1f;
+        startingSun = 200;
         overrideSunTimes = false;
         overrideZombieSpeed = false;
         overridePeaFireRate = false;
+        winTimeSeconds = 60f;
     }
 
     public void ApplyHard()
@@ -60,6 +65,6 @@ public class GameSettings : MonoBehaviour
         overrideSunTimes = false;
         overrideZombieSpeed = false;
         overridePeaFireRate = false;
+        winTimeSeconds = 120f;
     }
-
 }

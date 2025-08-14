@@ -6,23 +6,27 @@ using TMPro;
 public class GameManager : MonoBehaviour
 {
     public TMP_Text sunDisp;
-    public int startingSunAmnt;
+    public int startingSunAmnt = 50;
     public int SunAmount = 0;
 
-    private void Start()
+    void Start()
     {
+        // Si hay GameSettings, usar su valor inicial
+        if (GameSettings.I != null) startingSunAmnt = GameSettings.I.startingSun;
         AddSun(startingSunAmnt);
     }
 
     public void AddSun(int amnt)
     {
         SunAmount += amnt;
-        sunDisp.text = "" + SunAmount;
+        if (sunDisp) sunDisp.text = "" + SunAmount;
     }
 
     public void DeductSun(int amnt)
     {
         SunAmount -= amnt;
-        sunDisp.text = "" + SunAmount;
+        if (sunDisp) sunDisp.text = "" + SunAmount;
     }
 }
+
+

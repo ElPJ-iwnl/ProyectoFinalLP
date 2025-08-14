@@ -7,24 +7,26 @@ public class SlotsManagerCollider : MonoBehaviour
     public GameObject plant;
     public bool isOccupied = false;
 
+    [Header("Fila")]
+    public int rowIndex = 0; // asigna por Inspector (1..5)
+
     void OnMouseOver()
     {
-         var cards = Object.FindObjectsByType<CardManager>(FindObjectsSortMode.None);
+        var cards = Object.FindObjectsByType<CardManager>(FindObjectsSortMode.None);
         foreach (var item in cards)
         {
-            item.colliderName = this.GetComponent<SlotsManagerCollider>();
+            item.colliderName = this;
             item.isOverCollider = true;
         }
 
         if (plant == null)
         {
-            if (GameObject.FindGameObjectWithTag("Plant") != null)
+            var dragging = GameObject.FindGameObjectWithTag("Plant");
+            if (dragging != null)
             {
-                plant = GameObject.FindGameObjectWithTag("Plant");
-                plant.transform.SetParent(this.transform);
-                Vector3 pos = new Vector3(0, 0, -1);
-                plant.transform.position = new Vector3(0, 0, -1);
-                plant.transform.localPosition = pos;
+                plant = dragging;
+                plant.transform.SetParent(transform);
+                plant.transform.localPosition = new Vector3(0, 0, -1);
             }
         }
         else
@@ -32,9 +34,6 @@ public class SlotsManagerCollider : MonoBehaviour
             isOccupied = false;
         }
     }
-
-    private void OnMouseExit()
-    {
-        //Destroy(plant);
-    }
 }
+
+

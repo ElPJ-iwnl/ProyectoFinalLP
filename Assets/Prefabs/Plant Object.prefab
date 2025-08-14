@@ -110,7 +110,7 @@ SpriteRenderer:
   m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: d97e0fa98c2ce0141944131978b25161, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.57976663, g: 0, b: 0.735849, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -139,10 +139,11 @@ MonoBehaviour:
   damage: 0
   range: 0
   speed: 0
+  fireRate: 0
   zombieLayer:
     serializedVersion: 2
     m_Bits: 64
-  fireRate: 0
+  laneTolerance: 1
   isMine: 0
   growDuration: 0
   explosion: {fileID: 0}

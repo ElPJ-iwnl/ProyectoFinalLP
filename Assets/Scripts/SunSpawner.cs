@@ -13,27 +13,27 @@ public class SunSpawner : MonoBehaviour
 
     float timer;
 
-float NextInterval()
-{
-    if (GameSettings.I != null && GameSettings.I.overrideSunTimes)
+    float NextInterval()
     {
-        return Random.Range(GameSettings.I.sunMinTime, GameSettings.I.sunMaxTime);
+        if (GameSettings.I != null && GameSettings.I.overrideSunTimes)
+            return Mathf.Max(0.1f, Random.Range(GameSettings.I.sunMinTime, GameSettings.I.sunMaxTime));
+
+        // defaults seguros si vinieron 0
+        float min = (minTime > 0f) ? minTime : 5f;
+        float max = (maxTime > min) ? maxTime : (min + 3f);
+        return Random.Range(min, max);
     }
-
-    return Random.Range(minTime, maxTime);
-}
-
 
     Vector3 NextWorldPos()
     {
         if (isSunFlower)
         {
-
+            // nace justo encima del girasol
             return new Vector3(transform.position.x, transform.position.y, -2f);
         }
         else
         {
-
+            // caída aleatoria desde el cielo (si usas este modo)
             return new Vector3(
                 Random.Range(minPos.x, maxPos.x),
                 Random.Range(minPos.y, maxPos.y),
@@ -45,6 +45,7 @@ float NextInterval()
     void OnEnable()
     {
         timer = NextInterval();
+        if (timer <= 0f) timer = 1f;
     }
 
     void Update()
@@ -52,22 +53,32 @@ float NextInterval()
         timer -= Time.deltaTime;
         if (timer <= 0f)
         {
+            if (sun == null)
+            {
+                Debug.LogError("[SunSpawner] Prefab 'Sun' no asignado.");
+                timer = NextInterval();
+                return;
+            }
+
             Vector3 pos = NextWorldPos();
             GameObject s = Instantiate(sun, pos, Quaternion.identity);
 
             if (isSunFlower)
             {
-
+                // El sol del girasol se queda quieto
                 var rb = s.GetComponent<Rigidbody2D>();
                 if (rb) Destroy(rb);
             }
 
-            timer = NextInterval(); 
+            timer = NextInterval();
         }
     }
 
     void OnTriggerEnter2D(Collider2D col)
     {
+        // Si el spawner es un girasol, NO borres los soles que toquen su trigger
+        if (isSunFlower) return;
+
         if (col.CompareTag("Sun"))
             Destroy(col.gameObject);
     }

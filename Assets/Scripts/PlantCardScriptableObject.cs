@@ -16,6 +16,7 @@ public class PlantCardScriptableObject : ScriptableObject
     public float range;
     public float speed;
     public float fireRate;
+
     [Header("Mine Parameters")]
     public bool isMine;
     public GameObject Explosion;

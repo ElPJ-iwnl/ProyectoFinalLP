@@ -5,7 +5,9 @@ using TMPro;
 
 public class SunSystem : MonoBehaviour
 {
-    public int SunValue;
+    public int SunValue = 25;
+    public AudioClip pickupSfx;
+
     GameManager gm;
 
     void Awake()
@@ -18,7 +20,10 @@ public class SunSystem : MonoBehaviour
         if (gm != null)
         {
             gm.AddSun(SunValue);
+            if (pickupSfx) AudioSource.PlayClipAtPoint(pickupSfx, transform.position);
             Destroy(gameObject);
         }
     }
 }
+
+

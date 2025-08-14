@@ -3,20 +3,22 @@ using UnityEngine.SceneManagement;
 
 public class MenuButtons : MonoBehaviour
 {
-    
     public string gameSceneName = "Scenes/SampleScene";
+
     public void PlayEasy()
     {
         if (GameSettings.I == null) return;
         GameSettings.I.ApplyEasy();
         SceneManager.LoadScene(gameSceneName);
     }
-        public void PlayMedium()
+
+    public void PlayMedium()
     {
         if (GameSettings.I == null) return;
         GameSettings.I.ApplyMedium();
         SceneManager.LoadScene(gameSceneName);
     }
+
     public void PlayHard()
     {
         if (GameSettings.I == null) return;

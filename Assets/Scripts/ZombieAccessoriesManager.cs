@@ -11,14 +11,25 @@ public class ZombieAccessoriesManager : MonoBehaviour
 
     float divisions = 0;
 
+    void Awake()
+    {
+        // Auto-asignar SR si no está
+        if (accessoryRenderer == null)
+            accessoryRenderer = GetComponentInChildren<SpriteRenderer>();
+    }
+
     private void Start()
     {
-        divisions = accessoryStates == null ? 0 : accessoryStates.Count > 0 ? accessoryHealth / accessoryStates.Count : 0;
+        // proteger contra listas vacías
+        if (accessoryStates != null && accessoryStates.Count > 0)
+            divisions = accessoryHealth / accessoryStates.Count;
+        else
+            divisions = accessoryHealth; // evita div/0
     }
 
     private void Update()
     {
-        if (accessoryHealthCurrent <= 0)
+        if (accessoryHealthCurrent <= 0 && accessoryRenderer != null)
         {
             Destroy(accessoryRenderer.gameObject);
         }
@@ -28,10 +39,19 @@ public class ZombieAccessoriesManager : MonoBehaviour
     {
         accessoryHealthCurrent -= amnt;
 
-        int index = Mathf.CeilToInt((accessoryHealth - accessoryHealthCurrent) / divisions);
+        if (accessoryRenderer == null || accessoryStates == null || accessoryStates.Count == 0)
+            return;
 
-        index = index > (accessoryStates.Count - 1) ? (accessoryStates.Count - 1) : index;
+        int index = Mathf.CeilToInt((accessoryHealth - accessoryHealthCurrent) / Mathf.Max(divisions, 0.0001f));
+        index = Mathf.Clamp(index, 0, accessoryStates.Count - 1);
 
         accessoryRenderer.sprite = accessoryStates[index];
+        var c = accessoryRenderer.color; // asegurar visible
+        c.a = 1f; accessoryRenderer.color = c;
+        accessoryRenderer.enabled = true;
     }
 }
+
+
+
+

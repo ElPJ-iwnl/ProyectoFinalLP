@@ -4,99 +4,136 @@ using UnityEngine;
 
 public class ZombieManager : MonoBehaviour
 {
-    public ZombieScriptableObject[] zombieScriptableObjects;
-    public ZombieScriptableObject[] easyZombies;  
-    public ZombieScriptableObject[] hardZombies; 
-    public ZombieScriptableObject[] mediumZombies;   
-    public ZombieScriptableObject selectedSO;
-    public float timeInterval;
-    public bool randomizeTimes;
-    public float minTime;
-    public float maxTime;
-    public Transform[] columns;
-    public int selectedColumns;
+    [Header("Pools")]
+    public ZombieScriptableObject[] zombieScriptableObjects; // opcional/base
+    public ZombieScriptableObject[] easyZombies;             // Fácil
+    public ZombieScriptableObject[] hardZombies;             // Difícil (bucket, etc.)
+    public ZombieScriptableObject[] mediumZombies;           // Medio (cone)
 
-    private void Start()
+    [Header("Spawn")]
+    public float timeInterval = 5f;
+    public bool randomizeTimes = true;
+    public float minTime = 3f;
+    public float maxTime = 8f;
+    [Tooltip("Un Transform por FILA (1..5 de arriba a abajo)")]
+    public Transform[] columns;
+
+    ZombieScriptableObject selectedSO;
+
+    void Start()
     {
         StartCoroutine(ZombieSpawn());
     }
 
-    public IEnumerator ZombieSpawn()
+    IEnumerator ZombieSpawn()
     {
-       timeInterval = randomizeTimes ? Random.Range(minTime, maxTime) : timeInterval;
-        yield return new WaitForSeconds(timeInterval);
+        float wait = randomizeTimes ? Random.Range(minTime, maxTime) : timeInterval;
+        yield return new WaitForSeconds(wait);
 
+        // -------- seleccionar pool según dificultad --------
+        ZombieScriptableObject[] pool = null;
 
-        ZombieScriptableObject[] pool = zombieScriptableObjects; 
-
-            if (GameSettings.I != null)
+        if (GameSettings.I != null)
+        {
+            switch (GameSettings.I.difficulty)
             {
-                if (GameSettings.I.difficulty == Difficulty.Easy)
-                {
-                    if (easyZombies != null && easyZombies.Length > 0)
-                        pool = easyZombies;
-                }
-                else if (GameSettings.I.difficulty == Difficulty.Medium)
-                {
-                    if (mediumZombies != null && mediumZombies.Length > 0)
-                    {
-                        pool = mediumZombies;
-                    }
-                    else
-                    {
+                case Difficulty.Easy:
+                    pool = NonEmpty(easyZombies);
+                    break;
 
-                        bool hasEasy = easyZombies != null && easyZombies.Length > 0;
-                        bool hasHard = hardZombies != null && hardZombies.Length > 0;
+                case Difficulty.Medium:
+                    pool = NonEmpty(mediumZombies); // pon aquí SOLO el de cono si quieres
+                    break;
 
-                        if (hasEasy && hasHard)
-                        {
-                            float r = Random.value; 
-                            pool = (r < 0.7f) ? easyZombies : hardZombies;
-                        }
-                        else if (hasEasy) pool = easyZombies;
-                        else if (hasHard) pool = hardZombies;
-                    }
-                }
-                else 
-                {
-                    bool hasEasy = easyZombies != null && easyZombies.Length > 0;
-                    bool hasHard = hardZombies != null && hardZombies.Length > 0;
-
-                    if (hasEasy && hasHard)
-                    {
-                        var list = new List<ZombieScriptableObject>(easyZombies.Length + hardZombies.Length);
-                        list.AddRange(easyZombies);
-                        list.AddRange(hardZombies);
-                        pool = list.ToArray();
-                    }
-                    else if (hasHard) pool = hardZombies;
-                    else if (hasEasy) pool = easyZombies;
-                }
+                case Difficulty.Hard:
+                    pool = MergeNonEmpty(easyZombies, mediumZombies, hardZombies); // todos
+                    break;
             }
-if (pool == null || pool.Length == 0) pool = zombieScriptableObjects;
+        }
 
-        Debug.Log($"[ZombieManager] Dificultad={ (GameSettings.I ? GameSettings.I.difficulty.ToString() : "NULL") } | Pool={pool.Length} | Ejemplo={(pool.Length>0 ? pool[0].name : "VACIO")}");
+        // Fallbacks
+        if (pool == null || pool.Length == 0) pool = NonEmpty(zombieScriptableObjects);
+        if (pool == null || pool.Length == 0) pool = MergeNonEmpty(easyZombies, mediumZombies, hardZombies);
+        if (pool == null || pool.Length == 0) yield break;
+
+        // -------- instanciar --------
         selectedSO = pool[Random.Range(0, pool.Length)];
 
-        int columnID = Random.Range(0, columns.Length);
-        GameObject zombie = Instantiate(selectedSO.zombieDefault, columns[columnID]);
+        if (columns == null || columns.Length == 0)
+        {
+            Debug.LogError("[ZombieManager] Columns vacío: asigna 5 transforms (1..5).");
+            yield break;
+        }
 
+        int columnID = Random.Range(0, columns.Length);
+        Transform lane = columns[columnID];
+        if (lane == null)
+        {
+            Debug.LogError($"[ZombieManager] columns[{columnID}] es NULL.");
+            yield break;
+        }
+
+        // instancia como hijo y resetea local
+        GameObject zombie = Instantiate(selectedSO.zombieDefault, lane);
         var zc = zombie.GetComponent<ZombieController>();
         zc.thisZombieSO = selectedSO;
 
-        zombie.transform.SetParent(columns[columnID]);
-        zombie.transform.position = new Vector3(0, 0, -1);
-        zombie.transform.localPosition = new Vector3(0, 0, -1);
+        zombie.transform.localPosition = new Vector3(0, 0, -1f);
 
+        // ------ accesorio: parent a la CABEZA y ordenar delante ------
         if (selectedSO.zombieAccessory != null)
         {
-            GameObject accessory = Instantiate(selectedSO.zombieAccessory, zombie.transform);
-            zc.accessory = accessory;
-            zc.zombieAccessories = accessory.GetComponent<ZombieAccessoriesManager>();
-            zc.zombieAccessories.accessoryHealth = selectedSO.accessoryHealth;
-            zc.zombieAccessories.accessoryHealthCurrent = selectedSO.accessoryHealth;
+            GameObject acc = Instantiate(selectedSO.zombieAccessory);
+            acc.SetActive(true);
+
+            // cabeza = child(0) según tu ZombieController
+            Transform head = (zombie.transform.childCount > 0) ? zombie.transform.GetChild(0) : zombie.transform;
+
+            // parent y mantener local del prefab
+            acc.transform.SetParent(head, false);
+
+            // igualar sorting layer/orden para que se vea delante
+            var headSR = head.GetComponentInChildren<SpriteRenderer>();
+            var accSR  = acc.GetComponentInChildren<SpriteRenderer>();
+            if (headSR != null && accSR != null)
+            {
+                accSR.sortingLayerID = headSR.sortingLayerID;
+                accSR.sortingOrder   = headSR.sortingOrder + 1; // delante de la cabeza
+                accSR.enabled        = true;
+                var accColor = accSR.color; accColor.a = 1f; accSR.color = accColor;
+            }
+
+            // configurar el manager del accesorio (auto-asign si falta)
+            var zam = acc.GetComponent<ZombieAccessoriesManager>();
+            zc.accessory = acc;
+            zc.zombieAccessories = zam;
+
+            if (zam != null)
+            {
+                if (zam.accessoryRenderer == null)
+                    zam.accessoryRenderer = accSR; // auto
+                zam.accessoryHealth = selectedSO.accessoryHealth;
+                zam.accessoryHealthCurrent = selectedSO.accessoryHealth;
+            }
         }
+
+        // LOG para verificar
+        Debug.Log($"[ZombieManager] Diff={ (GameSettings.I ? GameSettings.I.difficulty.ToString() : "NULL") } | " +
+                  $"Spawned='{selectedSO.name}' | Acc={(selectedSO.zombieAccessory ? selectedSO.zombieAccessory.name : "None")} | " +
+                  $"Lane={columnID + 1}");
 
         StartCoroutine(ZombieSpawn());
     }
-} 
+
+    // ---------- helpers ----------
+    static ZombieScriptableObject[] NonEmpty(ZombieScriptableObject[] arr)
+        => (arr != null && arr.Length > 0) ? arr : null;
+
+    static ZombieScriptableObject[] MergeNonEmpty(params ZombieScriptableObject[][] arrays)
+    {
+        List<ZombieScriptableObject> list = new List<ZombieScriptableObject>();
+        foreach (var a in arrays)
+            if (a != null && a.Length > 0) list.AddRange(a);
+        return list.Count > 0 ? list.ToArray() : null;
+    }
+}

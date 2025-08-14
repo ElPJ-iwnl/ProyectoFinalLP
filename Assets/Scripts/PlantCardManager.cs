@@ -24,9 +24,7 @@ public class PlantCardManager : MonoBehaviour
         plantCards = new GameObject[amtOfCards];
 
         for (int i = 0; i < amtOfCards; i++)
-        {
             AddPlantCard(i);
-        }
     }
 
     public void AddPlantCard(int index)
@@ -40,13 +38,13 @@ public class PlantCardManager : MonoBehaviour
 
         plantCards[index] = card;
 
-        //Getting Variables
         plantIcon = plantCardSO[index].plantIcon;
         cost = plantCardSO[index].cost;
         cooldown = plantCardSO[index].cooldown;
 
-        //Updating UI
         card.GetComponentInChildren<RawImage>().texture = plantIcon;
         card.GetComponentInChildren<TMP_Text>().text = "" + cost;
     }
 }
+
+
