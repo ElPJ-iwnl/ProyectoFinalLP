@@ -1,32 +1,25 @@
 # Unity
 [Ll]ibrary/
+[Ll]ogs/
 [Tt]emp/
 [Oo]bj/
 [Bb]uild/
 [Bb]uilds/
-[Ll]ogs/
-[Mm]emoryCaptures/
 UserSettings/
-Assets/AssetStoreTools*
-.sysinfo
-*.unitypackage
-
-# IDEs
-.vs/
-*.csproj
-*.sln
-*.user
-*.userprefs
+MemoryCaptures/
 *.pidb
-*.svd
-*.pdb
-*.mdb
-.idea/
-.vscode/
-.vscode/*
-!.vscode/settings.json
-!.vscode/extensions.json
+*.user
+*.booproj
+*.sln.ide/
+*.vsconfig
 
-# OS
+# Visual Studio / VSCode
+.vs/
+.vscode/
+*.csproj.user
+*.unityproj
+
+# Sistema
 .DS_Store
 Thumbs.db
+

@@ -14,6 +14,11 @@ public class CardManager : MonoBehaviour, IDragHandler, IPointerUpHandler, IPoin
     public bool isOverCollider = false;
     GameObject plant;
     bool isHoldingPlant;
+    GameManager gm; 
+    void Awake()
+    {
+        gm = Object.FindFirstObjectByType<GameManager>(); 
+    }
 
     public void OnDrag(PointerEventData eventData)
     {
@@ -55,7 +60,7 @@ public class CardManager : MonoBehaviour, IDragHandler, IPointerUpHandler, IPoin
     public void OnPointerDown(PointerEventData eventData)
     {
 
-        if (GameObject.FindObjectOfType<GameManager>().SunAmount >= plantCardScriptableObject.cost)
+        if (gm != null && gm.SunAmount >= plantCardScriptableObject.cost)
         {
             isHoldingPlant = true;
             Vector3 pos = new Vector3(0, 0, -1);
@@ -79,7 +84,7 @@ public class CardManager : MonoBehaviour, IDragHandler, IPointerUpHandler, IPoin
         {
             if (colliderName != null && !colliderName.isOccupied)
             {
-                GameObject.FindObjectOfType<GameManager>().DeductSun(plantCardScriptableObject.cost);
+                if (gm != null) gm.DeductSun(plantCardScriptableObject.cost);
                 isHoldingPlant = false;
                 colliderName.isOccupied = true;
                 plant.tag = "Untagged";

@@ -15,8 +15,8 @@ MonoBehaviour:
   zombieDefault: {fileID: 3987133898451156565, guid: 66f872246af4e2142a870354cf9a334c, type: 3}
   zombieAccessory: {fileID: 0}
   accessoryHealth: 0
-  zombieHealth: 100
+  zombieHealth: 70
   zombieHandHealth: 50
-  zombieDamage: 10
-  zombieSpeed: 0.5
+  zombieDamage: 8
+  zombieSpeed: 0.7
   attackInterval: 1

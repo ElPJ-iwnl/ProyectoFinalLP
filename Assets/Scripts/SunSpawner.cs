@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SunSpawner : MonoBehaviour
@@ -8,63 +6,69 @@ public class SunSpawner : MonoBehaviour
 
     public float minTime;
     public float maxTime;
-    public float time;
 
     public GameObject sun;
     public Vector2 minPos;
     public Vector2 maxPos;
-    Vector3 pos;
 
-    private void Start()
+    float timer;
+
+float NextInterval()
+{
+    if (GameSettings.I != null && GameSettings.I.overrideSunTimes)
     {
-        time = Random.Range(minTime, maxTime);
-        if (!isSunFlower)
+        return Random.Range(GameSettings.I.sunMinTime, GameSettings.I.sunMaxTime);
+    }
+
+    return Random.Range(minTime, maxTime);
+}
+
+
+    Vector3 NextWorldPos()
+    {
+        if (isSunFlower)
         {
-            pos.x = Random.Range(minPos.x, maxPos.x);
-            pos.y = Random.Range(minPos.y, maxPos.y);
-            pos.z = -1;
+
+            return new Vector3(transform.position.x, transform.position.y, -2f);
         }
         else
         {
-            pos.x = 0;
-            pos.y = 0;
-            pos.z = -1;
+
+            return new Vector3(
+                Random.Range(minPos.x, maxPos.x),
+                Random.Range(minPos.y, maxPos.y),
+                -1f
+            );
         }
-        StartCoroutine(SpawnSun());
     }
 
-    public IEnumerator SpawnSun()
+    void OnEnable()
     {
-        yield return new WaitForSeconds(time);
-        GameObject SunObject = Instantiate(sun, pos, Quaternion.identity);
-
-        time = Random.Range(minTime, maxTime);
-        if (!isSunFlower)
-        {
-            pos.x = Random.Range(minPos.x, maxPos.x);
-            pos.y = Random.Range(minPos.y, maxPos.y);
-            pos.z = -1;
-        }
-        else
-        {
-            //If is sunflower
-            Destroy(SunObject.GetComponent<Rigidbody2D>());
-            pos.x = 0;
-            pos.y = 0;
-            pos.z = -2;
-
-            SunObject.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, -2);
-            //SunObject.transform.parent = this.transform;
-            //SunObject.transform.localPosition = new Vector3(0,0,-2);
-        }
-        StartCoroutine(SpawnSun());
+        timer = NextInterval();
     }
 
-    public void OnTriggerEnter2D(Collider2D collision)
+    void Update()
     {
-        if (collision.gameObject.tag == "Sun")
+        timer -= Time.deltaTime;
+        if (timer <= 0f)
         {
-            Destroy(collision.gameObject);
+            Vector3 pos = NextWorldPos();
+            GameObject s = Instantiate(sun, pos, Quaternion.identity);
+
+            if (isSunFlower)
+            {
+
+                var rb = s.GetComponent<Rigidbody2D>();
+                if (rb) Destroy(rb);
+            }
+
+            timer = NextInterval(); 
         }
+    }
+
+    void OnTriggerEnter2D(Collider2D col)
+    {
+        if (col.CompareTag("Sun"))
+            Destroy(col.gameObject);
     }
 }

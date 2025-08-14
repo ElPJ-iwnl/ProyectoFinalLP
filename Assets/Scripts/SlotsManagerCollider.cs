@@ -9,7 +9,8 @@ public class SlotsManagerCollider : MonoBehaviour
 
     void OnMouseOver()
     {
-        foreach (CardManager item in GameObject.FindObjectsOfType<CardManager>())
+         var cards = Object.FindObjectsByType<CardManager>(FindObjectsSortMode.None);
+        foreach (var item in cards)
         {
             item.colliderName = this.GetComponent<SlotsManagerCollider>();
             item.isOverCollider = true;

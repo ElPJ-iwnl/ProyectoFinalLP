@@ -20,7 +20,6 @@ public class ZombieAccessoriesManager : MonoBehaviour
     {
         if (accessoryHealthCurrent <= 0)
         {
-            //Remove accessory
             Destroy(accessoryRenderer.gameObject);
         }
     }

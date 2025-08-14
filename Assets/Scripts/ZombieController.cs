@@ -18,6 +18,9 @@ public class ZombieController : MonoBehaviour
     public bool isAttacking;
 
     public float damageDelay = 2f;
+    public ZombieScriptableObject[] easyZombies;   
+    public ZombieScriptableObject[] hardZombies;   
+    public ZombieScriptableObject[] MediumZombies; 
 
     bool isDying;
 
@@ -30,6 +33,9 @@ public class ZombieController : MonoBehaviour
         handHealth = thisZombieSO.zombieHandHealth;
         attackInterval = thisZombieSO.attackInterval;
         currentHealth = health;
+        int zLayer = LayerMask.NameToLayer("Zombie");
+        if (zLayer >= 0) gameObject.layer = zLayer;
+
     }
 
     private void Update()
@@ -50,7 +56,6 @@ public class ZombieController : MonoBehaviour
 
         if (currentHealth <= handHealth && this.transform.childCount > 1)
         {
-            //Add rigidbody 2d to hand
             Transform hand = this.transform.GetChild(1);
 
             hand.gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
@@ -64,8 +69,6 @@ public class ZombieController : MonoBehaviour
         if (currentHealth <= 0 && this.transform.childCount > 0)
         {
             isDying = true;
-            //Dead
-            //Add rigidbody 2d to head
             Transform head = this.transform.GetChild(0);
 
             head.gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
@@ -89,7 +92,6 @@ public class ZombieController : MonoBehaviour
     private void OnTriggerStay2D(Collider2D collision)
     {
         Debug.Log("Collided with " + collision.gameObject.name);
-        //Detect plant collisions
         if (collision.gameObject.tag == "Plant")
         {
             isAttacking = true;
@@ -113,7 +115,6 @@ public class ZombieController : MonoBehaviour
     public IEnumerator Attack()
     {
         Debug.Log("Attacking...");
-        //Attack Plant
         if (target != null)
         {
             target.GetComponent<PlantManager>().Damage(damage);
@@ -125,7 +126,6 @@ public class ZombieController : MonoBehaviour
 
     public void DealDamage(float amnt)
     {
-        //Audio to play
         currentHealth -= amnt;
 
         if (zombieAccessories != null)

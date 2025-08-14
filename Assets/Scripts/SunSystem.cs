@@ -6,11 +6,19 @@ using TMPro;
 public class SunSystem : MonoBehaviour
 {
     public int SunValue;
+    GameManager gm;
+
+    void Awake()
+    {
+        gm = Object.FindFirstObjectByType<GameManager>();
+    }
 
     private void OnMouseDown()
     {
-        GameObject.FindObjectOfType<GameManager>().AddSun(SunValue);
-
-        Destroy(this.gameObject);
+        if (gm != null)
+        {
+            gm.AddSun(SunValue);
+            Destroy(gameObject);
+        }
     }
 }
