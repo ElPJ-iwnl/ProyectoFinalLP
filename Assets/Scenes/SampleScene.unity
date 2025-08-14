@@ -299,6 +299,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   winUI: {fileID: 0}
+  imageScreenPercent: 0.6
+  spriteScreenPercent: 0.6
   menuSceneName: MenuPrincipal
   waitBeforeMenu: 2
   winTimeOverride: -1
@@ -1511,18 +1513,12 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d20c53b06c015d54cb7bae0022cd543e, type: 2}
   - {fileID: 11400000, guid: d20c53b06c015d54cb7bae0022cd543e, type: 2}
   - {fileID: 11400000, guid: d20c53b06c015d54cb7bae0022cd543e, type: 2}
-  - {fileID: 11400000, guid: d20c53b06c015d54cb7bae0022cd543e, type: 2}
   hardZombies:
   - {fileID: 11400000, guid: e7e42495ad320324cb6472ca4ed86b5c, type: 2}
   - {fileID: 11400000, guid: 96517c05cb4b3b04ba96de84e8a11a6d, type: 2}
-  - {fileID: 11400000, guid: e7e42495ad320324cb6472ca4ed86b5c, type: 2}
-  - {fileID: 11400000, guid: 96517c05cb4b3b04ba96de84e8a11a6d, type: 2}
-  - {fileID: 11400000, guid: e7e42495ad320324cb6472ca4ed86b5c, type: 2}
   mediumZombies:
   - {fileID: 11400000, guid: d20c53b06c015d54cb7bae0022cd543e, type: 2}
   - {fileID: 11400000, guid: 96517c05cb4b3b04ba96de84e8a11a6d, type: 2}
-  - {fileID: 11400000, guid: d20c53b06c015d54cb7bae0022cd543e, type: 2}
-  selectedSO: {fileID: 0}
   timeInterval: 5
   randomizeTimes: 1
   minTime: 3
@@ -3038,7 +3034,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e2a00e1da45f8040999cb2976bd1bc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameOverUI: {fileID: 790028305}
+  gameOverSpriteDirect: {fileID: 1577444282, guid: 54591dfbcac70784494f962dc65432a0, type: 3}
+  gameOverUI: {fileID: 0}
+  imageScreenPercent: 0.75
+  spriteScreenPercent: 0.75
+  gameOverSpritePath: GameOver
   delayBeforeMenu: 3
   menuSceneName: MenuPrincipal
 --- !u!4 &635311984
@@ -3090,7 +3090,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 32.07334, y: 82.04639}
+  m_Offset: {x: 75.485596, y: -313.01587}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -3100,7 +3100,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 65.773224, y: 763.8169}
+  m_Size: {x: 4.593384, y: 8.7690735}
   m_EdgeRadius: 0
 --- !u!1 &636205049
 GameObject:

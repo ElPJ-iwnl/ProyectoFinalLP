@@ -164,7 +164,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
-  m_Constraints: 7
+  m_Constraints: 6
 --- !u!114 &4044871393802439460
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -189,8 +189,7 @@ MonoBehaviour:
   attackInterval: 0
   isAttacking: 0
   damageDelay: 2
-  rowIndex: 0
-  zombieLoopSfx: {fileID: 8300000, guid: fe45c8d6e6fa2dc46b3eeb573794a385, type: 3}
+  laneTolerance: 0.45
 --- !u!1 &4225900456744540549
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,25 +1,55 @@
 # Unity
 [Ll]ibrary/
-[Ll]ogs/
 [Tt]emp/
 [Oo]bj/
 [Bb]uild/
 [Bb]uilds/
+[Ll]ogs/
 UserSettings/
 MemoryCaptures/
+Recordings/
+CrashReports/
+ScriptAssemblies/
+DerivedDataCache/
+.sysinfo
 *.pidb
-*.user
 *.booproj
-*.sln.ide/
-*.vsconfig
-
-# Visual Studio / VSCode
-.vs/
-.vscode/
-*.csproj.user
+*.svd
+*.pdb
+*.opendb
+*.VC.db
+*.sln
+*.csproj
 *.unityproj
-
-# Sistema
+*.user
+*.userprefs
+*.pidb.meta
+*.mdb
+*.mdb.meta
+*.db
+.vs/
+.idea/
 .DS_Store
 Thumbs.db
+
+# Addressables/Cache
+Assets/StreamingAssets/aa.meta
+Assets/StreamingAssets/aa/*
+
+# Builds
+*.apk
+*.aab
+*.ipa
+
+# JetBrains Rider
+.idea/
+*.sln.DotSettings
+
+# TextMesh Pro auto files
+Assets/TextMesh Pro/**/*.asset
+
+# Do NOT ignore these (necesarios)
+!Assets/
+!Packages/
+!ProjectSettings/
 

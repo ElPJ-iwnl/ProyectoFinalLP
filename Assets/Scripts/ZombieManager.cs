@@ -5,10 +5,10 @@ using UnityEngine;
 public class ZombieManager : MonoBehaviour
 {
     [Header("Pools")]
-    public ZombieScriptableObject[] zombieScriptableObjects; // opcional/base
-    public ZombieScriptableObject[] easyZombies;             // Fácil
-    public ZombieScriptableObject[] hardZombies;             // Difícil (bucket, etc.)
-    public ZombieScriptableObject[] mediumZombies;           // Medio (cone)
+    public ZombieScriptableObject[] zombieScriptableObjects; 
+    public ZombieScriptableObject[] easyZombies;             
+    public ZombieScriptableObject[] hardZombies;            
+    public ZombieScriptableObject[] mediumZombies;         
 
     [Header("Spawn")]
     public float timeInterval = 5f;
@@ -30,7 +30,7 @@ public class ZombieManager : MonoBehaviour
         float wait = randomizeTimes ? Random.Range(minTime, maxTime) : timeInterval;
         yield return new WaitForSeconds(wait);
 
-        // -------- seleccionar pool según dificultad --------
+
         ZombieScriptableObject[] pool = null;
 
         if (GameSettings.I != null)
@@ -42,11 +42,11 @@ public class ZombieManager : MonoBehaviour
                     break;
 
                 case Difficulty.Medium:
-                    pool = NonEmpty(mediumZombies); // pon aquí SOLO el de cono si quieres
+                    pool = NonEmpty(mediumZombies); 
                     break;
 
                 case Difficulty.Hard:
-                    pool = MergeNonEmpty(easyZombies, mediumZombies, hardZombies); // todos
+                    pool = MergeNonEmpty(easyZombies, mediumZombies, hardZombies);
                     break;
             }
         }
@@ -73,37 +73,37 @@ public class ZombieManager : MonoBehaviour
             yield break;
         }
 
-        // instancia como hijo y resetea local
+
         GameObject zombie = Instantiate(selectedSO.zombieDefault, lane);
         var zc = zombie.GetComponent<ZombieController>();
         zc.thisZombieSO = selectedSO;
 
         zombie.transform.localPosition = new Vector3(0, 0, -1f);
 
-        // ------ accesorio: parent a la CABEZA y ordenar delante ------
+
         if (selectedSO.zombieAccessory != null)
         {
             GameObject acc = Instantiate(selectedSO.zombieAccessory);
             acc.SetActive(true);
 
-            // cabeza = child(0) según tu ZombieController
+
             Transform head = (zombie.transform.childCount > 0) ? zombie.transform.GetChild(0) : zombie.transform;
 
-            // parent y mantener local del prefab
+
             acc.transform.SetParent(head, false);
 
-            // igualar sorting layer/orden para que se vea delante
+
             var headSR = head.GetComponentInChildren<SpriteRenderer>();
             var accSR  = acc.GetComponentInChildren<SpriteRenderer>();
             if (headSR != null && accSR != null)
             {
                 accSR.sortingLayerID = headSR.sortingLayerID;
-                accSR.sortingOrder   = headSR.sortingOrder + 1; // delante de la cabeza
+                accSR.sortingOrder   = headSR.sortingOrder + 1; 
                 accSR.enabled        = true;
                 var accColor = accSR.color; accColor.a = 1f; accSR.color = accColor;
             }
 
-            // configurar el manager del accesorio (auto-asign si falta)
+
             var zam = acc.GetComponent<ZombieAccessoriesManager>();
             zc.accessory = acc;
             zc.zombieAccessories = zam;
@@ -111,13 +111,13 @@ public class ZombieManager : MonoBehaviour
             if (zam != null)
             {
                 if (zam.accessoryRenderer == null)
-                    zam.accessoryRenderer = accSR; // auto
+                    zam.accessoryRenderer = accSR; 
                 zam.accessoryHealth = selectedSO.accessoryHealth;
                 zam.accessoryHealthCurrent = selectedSO.accessoryHealth;
             }
         }
 
-        // LOG para verificar
+
         Debug.Log($"[ZombieManager] Diff={ (GameSettings.I ? GameSettings.I.difficulty.ToString() : "NULL") } | " +
                   $"Spawned='{selectedSO.name}' | Acc={(selectedSO.zombieAccessory ? selectedSO.zombieAccessory.name : "None")} | " +
                   $"Lane={columnID + 1}");
@@ -125,7 +125,7 @@ public class ZombieManager : MonoBehaviour
         StartCoroutine(ZombieSpawn());
     }
 
-    // ---------- helpers ----------
+
     static ZombieScriptableObject[] NonEmpty(ZombieScriptableObject[] arr)
         => (arr != null && arr.Length > 0) ? arr : null;
 

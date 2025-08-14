@@ -19,7 +19,7 @@ public class ZombieController : MonoBehaviour
 
     public float damageDelay = 2f;
 
-    // --- NUEVO: misma idea de tolerancia vertical
+
     [Header("Lane")]
     public float laneTolerance = 0.45f;
 
@@ -86,7 +86,7 @@ public class ZombieController : MonoBehaviour
         var plant = collision.GetComponent<PlantManager>();
         if (plant == null) return;
 
-        // SOLO si está en la MISMA FILA (comparando Y)
+
         if (Mathf.Abs(plant.transform.position.y - transform.position.y) <= laneTolerance)
         {
             isAttacking = true;

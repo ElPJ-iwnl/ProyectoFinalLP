@@ -1,0 +1,260 @@
+fileFormatVersion: 2
+guid: 636d4862a9a193548a293571399e73b4
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 381658218719171997
+    second: "Sin t\xEDtulo (Presentaci\xF3n (43)) (5)_0"
+  - first:
+      213: 6274420580013080143
+    second: "Sin t\xEDtulo (Presentaci\xF3n (43)) (5)_1"
+  - first:
+      213: -3815369990738258842
+    second: "Sin t\xEDtulo (Presentaci\xF3n (43)) (5)_2"
+  - first:
+      213: -3093332123755781957
+    second: "Sin t\xEDtulo (Presentaci\xF3n (43)) (5)_3"
+  - first:
+      213: 2548949643555711836
+    second: "Sin t\xEDtulo (Presentaci\xF3n (43)) (5)_4"
+  - first:
+      213: -4880845442715916549
+    second: "Sin t\xEDtulo (Presentaci\xF3n (43)) (5)_5"
+  - first:
+      213: -7128345273892492357
+    second: "Sin t\xEDtulo (Presentaci\xF3n (43)) (5)_6"
+  - first:
+      213: -7820612055170293019
+    second: "Sin t\xEDtulo (Presentaci\xF3n (43)) (5)_7"
+  - first:
+      213: 4498653184110610357
+    second: "Sin t\xEDtulo (Presentaci\xF3n (43)) (5)_8"
+  - first:
+      213: -6217323194049752930
+    second: "Sin t\xEDtulo (Presentaci\xF3n (43)) (5)_9"
+  - first:
+      213: -2117921526069625880
+    second: "Sin t\xEDtulo (Presentaci\xF3n (43)) (5)_10"
+  - first:
+      213: 706027563958135554
+    second: "Sin t\xEDtulo (Presentaci\xF3n (43)) (5)_11"
+  - first:
+      213: -4905852158982069301
+    second: "Sin t\xEDtulo (Presentaci\xF3n (43)) (5)_12"
+  - first:
+      213: 1147353039034992845
+    second: "Sin t\xEDtulo (Presentaci\xF3n (43)) (5)_13"
+  - first:
+      213: 2683280736563717986
+    second: "Sin t\xEDtulo (Presentaci\xF3n (43)) (5)_14"
+  - first:
+      213: -1402197452066450089
+    second: "Sin t\xEDtulo (Presentaci\xF3n (43)) (5)_15"
+  - first:
+      213: -3011213323496239209
+    second: "Sin t\xEDtulo (Presentaci\xF3n (43)) (5)_16"
+  - first:
+      213: 1979777661075135759
+    second: "Sin t\xEDtulo (Presentaci\xF3n (43)) (5)_17"
+  - first:
+      213: -2910674766561883883
+    second: "Sin t\xEDtulo (Presentaci\xF3n (43)) (5)_18"
+  - first:
+      213: -3662619637533980398
+    second: "Sin t\xEDtulo (Presentaci\xF3n (43)) (5)_19"
+  - first:
+      213: 2199198466546904858
+    second: "Sin t\xEDtulo (Presentaci\xF3n (43)) (5)_20"
+  - first:
+      213: 4769185962654510011
+    second: "Sin t\xEDtulo (Presentaci\xF3n (43)) (5)_21"
+  - first:
+      213: -7306128891953835825
+    second: "Sin t\xEDtulo (Presentaci\xF3n (43)) (5)_22"
+  - first:
+      213: -133920110532864986
+    second: "Sin t\xEDtulo (Presentaci\xF3n (43)) (5)_23"
+  - first:
+      213: -1108918646856092136
+    second: "Sin t\xEDtulo (Presentaci\xF3n (43)) (5)_24"
+  - first:
+      213: -2085358439173791572
+    second: "Sin t\xEDtulo (Presentaci\xF3n (43)) (5)_25"
+  - first:
+      213: 6852422753296567650
+    second: "Sin t\xEDtulo (Presentaci\xF3n (43)) (5)_26"
+  - first:
+      213: 4547642422591400620
+    second: "Sin t\xEDtulo (Presentaci\xF3n (43)) (5)_27"
+  - first:
+      213: -752442824856930411
+    second: "Sin t\xEDtulo (Presentaci\xF3n (43)) (5)_28"
+  - first:
+      213: -2742358795874230945
+    second: "Sin t\xEDtulo (Presentaci\xF3n (43)) (5)_29"
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: GameOver_0
+      rect:
+        serializedVersion: 2
+        x: 85
+        y: 141
+        width: 825
+        height: 416
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2417c8f3de5d3d44cb32690483aba843
+      internalID: 1577444282
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 1297a4c4cbebbf54f8e7612456045168
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      GameOver_0: 1577444282
+      "Sin t\xEDtulo (Presentaci\xF3n (43)) (5)_0": 381658218719171997
+      "Sin t\xEDtulo (Presentaci\xF3n (43)) (5)_1": 6274420580013080143
+      "Sin t\xEDtulo (Presentaci\xF3n (43)) (5)_10": -2117921526069625880
+      "Sin t\xEDtulo (Presentaci\xF3n (43)) (5)_11": 706027563958135554
+      "Sin t\xEDtulo (Presentaci\xF3n (43)) (5)_12": -4905852158982069301
+      "Sin t\xEDtulo (Presentaci\xF3n (43)) (5)_13": 1147353039034992845
+      "Sin t\xEDtulo (Presentaci\xF3n (43)) (5)_14": 2683280736563717986
+      "Sin t\xEDtulo (Presentaci\xF3n (43)) (5)_15": -1402197452066450089
+      "Sin t\xEDtulo (Presentaci\xF3n (43)) (5)_16": -3011213323496239209
+      "Sin t\xEDtulo (Presentaci\xF3n (43)) (5)_17": 1979777661075135759
+      "Sin t\xEDtulo (Presentaci\xF3n (43)) (5)_18": -2910674766561883883
+      "Sin t\xEDtulo (Presentaci\xF3n (43)) (5)_19": -3662619637533980398
+      "Sin t\xEDtulo (Presentaci\xF3n (43)) (5)_2": -3815369990738258842
+      "Sin t\xEDtulo (Presentaci\xF3n (43)) (5)_20": 2199198466546904858
+      "Sin t\xEDtulo (Presentaci\xF3n (43)) (5)_21": 4769185962654510011
+      "Sin t\xEDtulo (Presentaci\xF3n (43)) (5)_22": -7306128891953835825
+      "Sin t\xEDtulo (Presentaci\xF3n (43)) (5)_23": -133920110532864986
+      "Sin t\xEDtulo (Presentaci\xF3n (43)) (5)_24": -1108918646856092136
+      "Sin t\xEDtulo (Presentaci\xF3n (43)) (5)_25": -2085358439173791572
+      "Sin t\xEDtulo (Presentaci\xF3n (43)) (5)_26": 6852422753296567650
+      "Sin t\xEDtulo (Presentaci\xF3n (43)) (5)_27": 4547642422591400620
+      "Sin t\xEDtulo (Presentaci\xF3n (43)) (5)_28": -752442824856930411
+      "Sin t\xEDtulo (Presentaci\xF3n (43)) (5)_29": -2742358795874230945
+      "Sin t\xEDtulo (Presentaci\xF3n (43)) (5)_3": -3093332123755781957
+      "Sin t\xEDtulo (Presentaci\xF3n (43)) (5)_4": 2548949643555711836
+      "Sin t\xEDtulo (Presentaci\xF3n (43)) (5)_5": -4880845442715916549
+      "Sin t\xEDtulo (Presentaci\xF3n (43)) (5)_6": -7128345273892492357
+      "Sin t\xEDtulo (Presentaci\xF3n (43)) (5)_7": -7820612055170293019
+      "Sin t\xEDtulo (Presentaci\xF3n (43)) (5)_8": 4498653184110610357
+      "Sin t\xEDtulo (Presentaci\xF3n (43)) (5)_9": -6217323194049752930
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

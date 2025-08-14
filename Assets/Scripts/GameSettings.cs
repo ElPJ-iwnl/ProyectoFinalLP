@@ -37,11 +37,11 @@ public class GameSettings : MonoBehaviour
         difficulty = Difficulty.Easy;
         zombieSpeedMultiplier = 1f;
         sunSpawnIntervalMultiplier = 0.6f;
-        startingSun = 300;
+        startingSun = 200;
         overrideSunTimes = false;
         overrideZombieSpeed = false;
         overridePeaFireRate = false;
-        winTimeSeconds = 30f;
+        winTimeSeconds = 45f;
     }
 
     public void ApplyMedium()
@@ -49,7 +49,7 @@ public class GameSettings : MonoBehaviour
         difficulty = Difficulty.Medium;
         zombieSpeedMultiplier = 1f;
         sunSpawnIntervalMultiplier = 1f;
-        startingSun = 200;
+        startingSun = 125;
         overrideSunTimes = false;
         overrideZombieSpeed = false;
         overridePeaFireRate = false;
@@ -61,10 +61,10 @@ public class GameSettings : MonoBehaviour
         difficulty = Difficulty.Hard;
         zombieSpeedMultiplier = 1f;
         sunSpawnIntervalMultiplier = 1.4f;
-        startingSun = 150;
+        startingSun = 75;
         overrideSunTimes = false;
         overrideZombieSpeed = false;
         overridePeaFireRate = false;
-        winTimeSeconds = 120f;
+        winTimeSeconds = 90f;
     }
 }

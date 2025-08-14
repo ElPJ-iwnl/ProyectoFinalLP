@@ -112,12 +112,12 @@ TextureImporter:
       name: "Sin ti\u0301tulo (Presentacio\u0301n)_0"
       rect:
         serializedVersion: 2
-        x: 597
-        y: 853
-        width: 742
-        height: 184
+        x: 569
+        y: 56
+        width: 785
+        height: 986
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -130,77 +130,11 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
-    - serializedVersion: 2
-      name: "Sin ti\u0301tulo (Presentacio\u0301n)_1"
-      rect:
-        serializedVersion: 2
-        x: 590
-        y: 621
-        width: 741
-        height: 185
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 509806b644ab5f8e0800000000000000
-      internalID: -1660216084594128635
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: "Sin ti\u0301tulo (Presentacio\u0301n)_2"
-      rect:
-        serializedVersion: 2
-        x: 1397
-        y: 682
-        width: 32
-        height: 13
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: d52b5dd4bb677ed20800000000000000
-      internalID: 3307742998163731037
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: "Sin ti\u0301tulo (Presentacio\u0301n)_3"
-      rect:
-        serializedVersion: 2
-        x: 723
-        y: 68
-        width: 474
-        height: 475
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 427859f1eec269cf0800000000000000
-      internalID: -245959728401381596
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: f93cbc3213b4b2143a85f3a346d5f656
     internalID: 0
     vertices: []
     indices: 
