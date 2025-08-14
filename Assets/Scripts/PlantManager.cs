@@ -8,12 +8,12 @@ public class PlantManager : MonoBehaviour
     public Transform shootPoint;
     public GameObject Bullet;
     public float health, damage, range, speed, fireRate;
-    public LayerMask zombieLayer; // lo conservo, aunque el disparo no lo usa
+    public LayerMask zombieLayer; 
 
     [Header("Tolerancia vertical para 'misma fila'")]
-    public float laneTolerance = 1.0f; // ajustado alto para cubrir bien filas 3 y 4
+    public float laneTolerance = 1.0f; 
 
-    // Mines (se mantiene)
+
     public bool isMine;
     public float growDuration;
     public GameObject explosion;
@@ -66,7 +66,6 @@ public class PlantManager : MonoBehaviour
 
             if (speed <= 0) continue;
 
-            // Busca zombies por tag; dispara si hay uno a la derecha, en rango y misma fila (tolerancia)
             var zombies = GameObject.FindGameObjectsWithTag("Zombie");
             bool hayObjetivo = false;
 

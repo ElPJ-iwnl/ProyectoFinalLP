@@ -20,11 +20,11 @@ public class ZombieAccessoriesManager : MonoBehaviour
 
     private void Start()
     {
-        // proteger contra listas vacías
+        
         if (accessoryStates != null && accessoryStates.Count > 0)
             divisions = accessoryHealth / accessoryStates.Count;
         else
-            divisions = accessoryHealth; // evita div/0
+            divisions = accessoryHealth; 
     }
 
     private void Update()
@@ -46,7 +46,7 @@ public class ZombieAccessoriesManager : MonoBehaviour
         index = Mathf.Clamp(index, 0, accessoryStates.Count - 1);
 
         accessoryRenderer.sprite = accessoryStates[index];
-        var c = accessoryRenderer.color; // asegurar visible
+        var c = accessoryRenderer.color; 
         c.a = 1f; accessoryRenderer.color = c;
         accessoryRenderer.enabled = true;
     }

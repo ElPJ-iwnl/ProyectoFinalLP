@@ -5,26 +5,26 @@ using UnityEngine.SceneManagement;
 public class GameTimer : MonoBehaviour
 {
     [Header("Win (puede ser UI Image o SpriteRenderer)")]
-    public GameObject winUI;                 // opcional: GameObject con Image o con SpriteRenderer
-    [Range(0.1f, 1f)] public float imageScreenPercent = 0.6f;   // si es UI Image
-    [Range(0.1f, 1f)] public float spriteScreenPercent = 0.6f;  // si es SpriteRenderer
+    public GameObject winUI;                
+    [Range(0.1f, 1f)] public float imageScreenPercent = 0.6f;   
+    [Range(0.1f, 1f)] public float spriteScreenPercent = 0.6f; 
 
     [Header("Navegación")]
     public string menuSceneName = "MenuPrincipal";
     public float waitBeforeMenu = 2f;
 
     [Header("Tiempo para ganar")]
-    public float winTimeOverride = -1f; // -1 => usa GameSettings (30/60/120)
+    public float winTimeOverride = -1f; 
 
     [Header("Fallback si no asignas Win UI")]
-    public string winSpritePath = "win"; // Resources/win.png
+    public string winSpritePath = "win"; 
 
     float timer, targetTime;
     bool winning;
 
-    Image uiImage;                 // si el usuario asigna UI
-    SpriteRenderer srImage;        // si el usuario asigna SpriteRenderer
-    Canvas autoCanvas;             // si lo creamos nosotros
+    Image uiImage;                
+    SpriteRenderer srImage;       
+    Canvas autoCanvas;            
     GameObject autoBg;
 
     void Start()
@@ -40,7 +40,6 @@ public class GameTimer : MonoBehaviour
             uiImage = winUI.GetComponentInChildren<Image>(true);
             if (uiImage == null) srImage = winUI.GetComponentInChildren<SpriteRenderer>(true);
 
-            // oculto al inicio
             winUI.SetActive(false);
             if (srImage != null) srImage.enabled = false;
         }
@@ -61,14 +60,11 @@ public class GameTimer : MonoBehaviour
     {
         if (uiImage != null)
         {
-            // ---- CASO A: UI Image asignada ----
             winUI.SetActive(true);
 
             var rt = uiImage.rectTransform;
-            // Centrado
             rt.anchorMin = rt.anchorMax = new Vector2(0.5f, 0.5f);
             rt.anchoredPosition = Vector2.zero;
-            // Tamaño relativo a pantalla
             float w = Screen.width  * imageScreenPercent;
             float h = Screen.height * imageScreenPercent;
             rt.sizeDelta = new Vector2(w, h);
@@ -78,17 +74,14 @@ public class GameTimer : MonoBehaviour
         }
         else if (srImage != null)
         {
-            // ---- CASO B: SpriteRenderer asignado ----
             CenterAndScaleSpriteRenderer(srImage, spriteScreenPercent);
             if (winUI != null) winUI.SetActive(true);
             srImage.enabled = true;
         }
         else
         {
-            // ---- CASO C: crear Canvas + Image y cargar Resources/win.png ----
             autoCanvas = CreateOverlayCanvas();
 
-            // Fondo semi
             autoBg = new GameObject("WinBG", typeof(Image));
             autoBg.transform.SetParent(autoCanvas.transform, false);
             var bImg = autoBg.GetComponent<Image>();
@@ -97,7 +90,6 @@ public class GameTimer : MonoBehaviour
             brt.anchorMin = Vector2.zero; brt.anchorMax = Vector2.one;
             brt.offsetMin = Vector2.zero; brt.offsetMax = Vector2.zero;
 
-            // Imagen
             var imgGO = new GameObject("WinImage", typeof(Image));
             imgGO.transform.SetParent(autoCanvas.transform, false);
             var img = imgGO.GetComponent<Image>();
@@ -107,7 +99,6 @@ public class GameTimer : MonoBehaviour
             if (s != null)
             {
                 img.sprite = s;
-                // Centrado y tamaño relativo
                 var rt = img.rectTransform;
                 rt.anchorMin = rt.anchorMax = new Vector2(0.5f, 0.5f);
                 rt.anchoredPosition = Vector2.zero;
@@ -118,14 +109,11 @@ public class GameTimer : MonoBehaviour
             yield return StartCoroutine(FadeImageUnscaled(img, 0f, 1f, 0.3f));
         }
 
-        // Pausa, espera y vuelve al menú
         Time.timeScale = 0f;
         yield return new WaitForSecondsRealtime(waitBeforeMenu);
         Time.timeScale = 1f;
         SceneManager.LoadScene(menuSceneName);
     }
-
-    // -------- helpers --------
 
     Canvas CreateOverlayCanvas()
     {
@@ -161,29 +149,25 @@ public class GameTimer : MonoBehaviour
         var cam = Camera.main;
         if (cam == null || sr.sprite == null) return;
 
-        // centrar en pantalla
         Vector3 center = cam.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, -cam.transform.position.z));
         center.z = 0f;
         sr.transform.position = center;
 
-        // calcular escala para cubrir "percent" de la pantalla
-        float worldH = 2f * cam.orthographicSize * percent;    // alto deseado en mundo
-        float worldW = worldH * cam.aspect;                    // ancho deseado manteniendo aspecto
 
-        // tamaño base del sprite en unidades de mundo SIN escala
+        float worldH = 2f * cam.orthographicSize * percent;    
+        float worldW = worldH * cam.aspect;                    
+
         Vector2 baseSize = sr.sprite.bounds.size;
         Vector3 currentScale = sr.transform.localScale;
-        // quitar escala actual para obtener tamaño "original"
         baseSize = new Vector2(baseSize.x / Mathf.Max(currentScale.x, 1e-5f),
                                baseSize.y / Mathf.Max(currentScale.y, 1e-5f));
 
         float scaleX = worldW / baseSize.x;
         float scaleY = worldH / baseSize.y;
-        float finalScale = Mathf.Min(scaleX, scaleY) * 0.95f; // pequeño margen
+        float finalScale = Mathf.Min(scaleX, scaleY) * 0.95f; 
 
         sr.transform.localScale = new Vector3(finalScale, finalScale, 1f);
 
-        // traer al frente
         try { sr.sortingLayerName = "UI"; } catch { }
         sr.sortingOrder = 10000;
 

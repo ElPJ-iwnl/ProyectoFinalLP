@@ -22,7 +22,6 @@ public class GameSettings : MonoBehaviour
     public bool overridePeaFireRate = false;
     public float peaFireRateAbs = 1.0f;
 
-    // NUEVO: tiempo para ganar (segundos)
     public float winTimeSeconds = 30f;
 
     void Awake()

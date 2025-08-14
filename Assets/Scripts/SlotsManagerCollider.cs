@@ -8,7 +8,7 @@ public class SlotsManagerCollider : MonoBehaviour
     public bool isOccupied = false;
 
     [Header("Fila")]
-    public int rowIndex = 0; // asigna por Inspector (1..5)
+    public int rowIndex = 0; 
 
     void OnMouseOver()
     {

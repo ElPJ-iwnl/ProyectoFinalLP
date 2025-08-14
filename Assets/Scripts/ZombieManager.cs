@@ -51,12 +51,12 @@ public class ZombieManager : MonoBehaviour
             }
         }
 
-        // Fallbacks
+
         if (pool == null || pool.Length == 0) pool = NonEmpty(zombieScriptableObjects);
         if (pool == null || pool.Length == 0) pool = MergeNonEmpty(easyZombies, mediumZombies, hardZombies);
         if (pool == null || pool.Length == 0) yield break;
 
-        // -------- instanciar --------
+
         selectedSO = pool[Random.Range(0, pool.Length)];
 
         if (columns == null || columns.Length == 0)

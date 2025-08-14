@@ -11,7 +11,6 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        // Si hay GameSettings, usar su valor inicial
         if (GameSettings.I != null) startingSunAmnt = GameSettings.I.startingSun;
         AddSun(startingSunAmnt);
     }

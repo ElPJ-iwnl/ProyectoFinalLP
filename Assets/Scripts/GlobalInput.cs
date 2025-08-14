@@ -12,7 +12,6 @@ public class GlobalInput : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            // Asegura reanudar tiempo por si estaba en pausa
             Time.timeScale = 1f;
             SceneManager.LoadScene("MenuPrincipal");
         }

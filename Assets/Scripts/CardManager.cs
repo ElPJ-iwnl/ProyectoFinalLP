@@ -100,7 +100,7 @@ public class CardManager : MonoBehaviour, IDragHandler, IPointerUpHandler, IPoin
             var pm = plant.GetComponent<PlantManager>();
             pm.isDragging = false;
 
-            // Si la carta es un girasol, añade SunSpawner con fallbacks seguros
+
             if (plantCardScriptableObject.isSunFlower)
             {
                 SunSpawner sunSpawner = plant.AddComponent<SunSpawner>();
@@ -114,7 +114,6 @@ public class CardManager : MonoBehaviour, IDragHandler, IPointerUpHandler, IPoin
                     sunSpawner.sun     = tmpl.sun;
                 }
 
-                // Fallback de prefab del sol si el template no lo trae
                 if (sunSpawner.sun == null)
                 {
                     var globalSpawner = Object.FindFirstObjectByType<SunSpawner>();
